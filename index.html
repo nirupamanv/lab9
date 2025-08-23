@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-5">
+  <h1 class="text-3xl font-bold mb-5">Hotel Booking Registration</h1>
+
+  <form id="registerForm" class="bg-white p-5 rounded shadow-md w-full max-w-md">
+    <input type="text" name="name" placeholder="Name" class="border p-2 w-full mb-2" required>
+    <input type="email" name="email" placeholder="Email" class="border p-2 w-full mb-2" required>
+    <input type="text" name="phone" placeholder="Phone Number" class="border p-2 w-full mb-2" required>
+    <input type="file" name="profile_pic" class="border p-2 w-full mb-2" required>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Register</button>
+  </form>
+
+  <h2 class="text-2xl mt-10 mb-5">Registered Users</h2>
+  <div id="usersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const usersList = document.getElementById("usersList");
+
+    // Fetch users
+    function fetchUsers() {
+      fetch("http://localhost:3000/api/users")
+        .then(res => res.json())
+        .then(data => {
+          usersList.innerHTML = "";
+          data.forEach(user => {
+            usersList.innerHTML += `
+              <div class="bg-white p-3 rounded shadow">
+                <img src="http://localhost:3000/uploads/${user.profile_pic}" class="w-20 h-20 object-cover rounded-full mb-2">
+                <h3 class="font-bold">${user.name}</h3>
+                <p>${user.email}</p>
+                <p>${user.phone}</p>
+              </div>
+            `;
+          });
+        });
+    }
+
+    fetchUsers();
+
+    // Register user
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch("http://localhost:3000/api/users", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        form.reset();
+        fetchUsers();
+      });
+    });
+  </script>
+</body>
+</html>
