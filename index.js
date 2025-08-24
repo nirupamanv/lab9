@@ -49,6 +49,14 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+transporter.verify((err, success) => {
+  if (err) {
+    console.error("Nodemailer not ready:", err.message);
+  } else {
+    console.log("Nodemailer is ready to send emails.");
+  }
+});
+
 
 
 const userRoutes = require("./routes/userRoutes")(db, upload, transporter);

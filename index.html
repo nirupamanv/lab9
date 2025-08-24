@@ -6,19 +6,23 @@
   <title>Hotel Booking Registration</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-5">
-  <h1 class="text-3xl font-bold mb-5">Hotel Booking Registration</h1>
+<body class=" min-h-screen flex flex-col items-center py-10">
 
-  <form id="registerForm" class="bg-white p-5 rounded shadow-md w-full max-w-md">
-    <input type="text" name="name" placeholder="Name" class="border p-2 w-full mb-2" required>
-    <input type="email" name="email" placeholder="Email" class="border p-2 w-full mb-2" required>
-    <input type="text" name="phone" placeholder="Phone Number" class="border p-2 w-full mb-2" required>
-    <input type="file" name="profile_pic" class="border p-2 w-full mb-2" required>
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Register</button>
+  <h1 class="text-4xl md:text-5xl font-extrabold mb-10 text-blue-800 text-center">Hotel Booking Registration</h1>
+
+  <!-- Registration Form -->
+    <form id="registerForm" class="bg-white w-full max-w-lg p-8 rounded-3xl shadow-2xl backdrop-blur-sm border border-gray-200 space-y-6">
+    <h2 class="text-2xl font-semibold text-blue-800 mb-4 text-center">Create Your Account</h2>
+    <input type="text" name="name" placeholder="Name" class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+    <input type="email" name="email" placeholder="Email" class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+    <input type="text" name="phone" placeholder="Phone Number" class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+    <input type="file" name="profile_pic" class="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg w-full transition duration-300">Register</button>
   </form>
 
-  <h2 class="text-2xl mt-10 mb-5">Registered Users</h2>
-  <div id="usersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  <!-- Registered Users Section -->
+  <h2 class="text-4xl font-bold mt-16 mb-6 text-blue-800 text-center">Registered Users</h2>
+  <div id="usersList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl px-4"></div>
 
   <script>
     const form = document.getElementById("registerForm");
@@ -32,11 +36,11 @@
           usersList.innerHTML = "";
           data.forEach(user => {
             usersList.innerHTML += `
-              <div class="bg-white p-3 rounded shadow">
-                <img src="http://localhost:3000/uploads/${user.profile_pic}" class="w-20 h-20 object-cover rounded-full mb-2">
-                <h3 class="font-bold">${user.name}</h3>
-                <p>${user.email}</p>
-                <p>${user.phone}</p>
+              <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center hover:scale-105 transform transition duration-300">
+                <img src="http://localhost:3000/uploads/${user.profile_pic}" class="w-24 h-24 object-cover rounded-full mb-3 border-2 border-blue-400">
+                <h3 class="font-bold text-lg text-blue-800">${user.name}</h3>
+                <p class="text-gray-600">${user.email}</p>
+                <p class="text-gray-600">${user.phone}</p>
               </div>
             `;
           });
